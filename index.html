@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Create Your Meal Plan</title>
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="topBar">
+                <h1>Meal Plan Maker</h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><button id="buttonMacroCal">Macro Calculator</button></li>
+                    <li><button id="buttonMealMaker">Meal Plan Maker</button></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div id="macroCal" class="mainContent">
+                <h2>Calculate Your Macros</h2>
+
+                <form id="macroCalForm">
+                    <label for="age">Age: </label>
+                    <input type="number" id="age" name="age" min="16" max="100" required>
+                    <br>
+
+                    <label>Gender: </label>
+                    <input type="radio" id="maleGender" name="gender" value="1" required>
+                    <label for="maleGender">Male</label>
+                    <input type="radio" id="femaleGender" name="gender" value="2" required>
+                    <label for="femaleGender">Female</label>
+                    <br>
+
+                    <label>Height: </label>
+                    <input type="number" id="feetHeight" name="feetHeight" min="3" max="8" required>
+                    <label for="feetHeight" class="unit">ft</label>
+                    <input type="number" id="inchesHeight" name="inchesHeight" min="0" max="11" required>
+                    <label for="inchesHeight" class="unit">in</label>
+                    <br>
+
+                    <label for="weight">Weight: </label>
+                    <input type="number" id="weight" name="weight" min="50" max="1000" required>
+                    <label for="weight" class="unit">lbs</label>
+                    <br>
+
+                    <label for="activityLevel">Activity Level: </label>
+                    <select id="activityLevel" name="activityLevel" required>
+                        <option value="1" selected>Basal Metabolic Rate (BMR)</option>
+                        <option value="1.2">Sedentary</option>
+                        <option value="1.375">Light</option>
+                        <option value="1.55">Active</option>
+                        <option value="1.725">Very Active</option>
+                    </select>
+                    <br>
+
+                    <label for="goal">Goal: </label>
+                    <select id="goal" name="goal" required>
+                        <option value="1">Maintain Weight</option>
+                        <option value=".1">Gain Weight</option>
+                        <option value="0.2">Lose Weight</option>
+                    </select>
+                    <br>
+
+                    <button id="submitBtn" type="button">Calculate</button>
+                </form>
+
+                <div id="calorieResults" class="hiddenDiv">
+                    <h3>Results</h3>
+                    <p class="macroResults">Calories: </p>
+                    <p id="calResults" class="macroResults"></p>
+                    <br>
+                    <p class="macroResults">Protein: </p>
+                    <p id="proResults" class="macroResults"></p>
+                    <br>
+                    <p class="macroResults">Carbohydrates: </p>
+                    <p id="carbResults" class="macroResults"></p>
+                    <br>
+                    <p class="macroResults">Fat: </p>
+                    <p id="fatResults" class="macroResults"></p>
+                </div>
+            </div>
+
+            <div id="mealMaker" class="mainContent hiddenDiv">
+                <h2>Generate Your Meal Plan</h2>
+
+                <form id="mealPlanForm">
+                    <label>Check Which Days to Generate. </label>
+                    <input type="checkbox" name="day" id="Monday">
+                    <label for="Monday">Monday</label>
+                    <input type="checkbox" name="day" id="Tuesday">
+                    <label for="Tuesday">Tuesday</label>
+                    <input type="checkbox" name="day" id="Wednesday">
+                    <label for="Wednesday">Wednesday</label>
+                    <input type="checkbox" name="day" id="Thursday">
+                    <label for="Thursday">Thursday</label>
+                    <input type="checkbox" name="day" id="Friday">
+                    <label for="Friday">Friday</label>
+                    <input type="checkbox" name="day" id="Saturday">
+                    <label for="Saturday">Saturday</label>
+                    <input type="checkbox" name="day" id="Sunday">
+                    <label for="Sunday">Sunday</label>
+                    <br>
+
+                    <label>What Meals Do You Want. </label>
+                    <input type="checkbox" name="meals" id="Breakfast">
+                    <label for="Breakfast">Breakfast</label>
+                    <input type="checkbox" name="meals" id="Lunch">
+                    <label for="Lunch">Lunch</label>
+                    <input type="checkbox" name="meals" id="Dinner">
+                    <label for="Dinner">Dinner</label>
+                    <input type="checkbox" name="meals" id="Snacks">
+                    <label for="Snacks">Snacks</label>
+                    <input type="checkbox" name="meals" id="Dessert">
+                    <label for="Dessert">Dessert</label>
+                    <br>
+
+                    <label for="numOfMeals">How Many Meals Excluding Snacks and Dessert. (1-6) </label>
+                    <input type="number" id="numOfMeals" name="numOfMeals" min="1" max="6" required>
+                    <br>
+
+                    <button id="generateBtn" type="button">Generate</button>
+                </form>
+
+                <div id="mealPlan" class="hiddenDiv">
+                    <h3>Your Meal Plan</h3>
+
+                    <h4 id="mon"></h4>
+                    <h4 id="tue"></h4>
+                    <h4 id="wed"></h4>
+                    <h4 id="thur"></h4>
+                    <h4 id="fri"></h4>
+                    <h4 id="sat"></h4>
+                    <h4 id="sun"></h4>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Copyright &copy; Hunter Barnes 2023</p>
+        </footer>
+
+        <script src="js/calculate.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                const macroCalForm = document.getElementById("macroCalForm");
+                const requiredFields = macroCalForm.querySelectorAll("[required]");
+
+
+                function showCalResults() {
+                    var hiddenResults = document.getElementById("calorieResults");
+                    hiddenResults.style.display = "block";
+                }
+
+                function validateForm() {
+                    for (var i=0; i<requiredFields.length; i++) {
+                        if (requiredFields[i].value === "") {
+                            alert("Please fill out all required fields.");
+                            return false;
+                        }
+                    }
+
+                    showCalResults();
+                }
+
+                if (submitBtn) {
+                submitBtn.addEventListener("click", validateForm);
+            }
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                const generateBtn = document.getElementById("generateBtn");
+                const mealPlanForm = document.getElementById("mealPlanForm");
+                const requiredFields = mealPlanForm.querySelectorAll("[required]");
+
+
+                function showPlan() {
+                    var hiddenResults = document.getElementById("mealPlan");
+                    hiddenResults.style.display = "block";
+                }
+
+                function validateForm() {
+                    for (var i=0; i<requiredFields.length; i++) {
+                        if (requiredFields[i].value === "") {
+                            alert("Please fill out all required fields.");
+                            return false;
+                        }
+                    }
+
+                    showPlan();
+                }
+
+                if (generateBtn) {
+                    generateBtn.addEventListener("click", validateForm);
+                }
+            });
+        </script>
+        <script>
+            const toggleMealMaker = document.getElementById("buttonMealMaker");
+            const mealMaker = document.getElementById("mealMaker");
+
+            const toggleMacroCal = document.getElementById("buttonMacroCal");
+            const macroCal = document.getElementById("macroCal");
+
+            toggleMealMaker.addEventListener("click", function () {
+                if (mealMaker.style.display === "none") {
+                    mealMaker.style.display = "block";
+                } else {
+                    mealMaker.style.display = "none";
+                }
+            })
+
+            toggleMacroCal.addEventListener("click", function () {
+                if (macroCal.style.display === "none") {
+                    macroCal.style.display = "block";
+                } else {
+                    macroCal.style.display = "none";
+                }
+            })
+        </script>
+    </body>
+</html>

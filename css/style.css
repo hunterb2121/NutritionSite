@@ -1,0 +1,85 @@
+html {
+    background-color: #A78682;
+}
+
+nav,
+ol,
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
+}
+
+header {
+    text-align: center;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav button {
+    text-align: center;
+    border-radius: 0%;
+    background-color: #429A86;
+    transition: transform 0.2s ease;
+    font-size: 2rem;
+}
+
+nav button:hover {
+    transform: scale(1.1);
+}
+
+#buttonMacroCal {
+    margin-right: 15px;
+}
+
+main {
+    background-color: #A690A4;
+    padding: 10px;
+    padding-bottom: 15px;
+    display: grid;
+    place-items: center;
+}
+
+.mainContent {
+    background-color: inherit;
+    margin: auto;
+}
+
+.hiddenDiv {
+    display: none;
+}
+
+.macroResults {
+    display: inline;
+}
+
+.formLabel {
+    display: inline-block;
+}
+
+footer {
+    text-align: center;
+    font-size: .8rem;
+}
